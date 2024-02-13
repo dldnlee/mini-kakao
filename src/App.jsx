@@ -11,14 +11,14 @@ function App() {
 
   if (auth) {
     return (
-      <div className='max-w-[400px] mx-auto bg-gray-100 relative h-screen max-h-[700px]'>
+      <div className='max-w-[400px] mx-auto bg-white relative h-screen max-h-[700px]'>
         <MainPage />
       </div>
     ) 
   } else {
     return (
-      <div className='max-w-[400px] mx-auto bg-gray-100 relative h-screen max-h-[700px]'>
-        <Login />
+      <div className='max-w-[400px] mx-auto bg-white relative h-screen max-h-[700px]'>
+        <Login auth={auth} setAuth={setAuth}/>
       </div>
     )
   }

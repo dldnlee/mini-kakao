@@ -7,7 +7,7 @@ import people from '../assets/my.svg';
 export default function NavBar() {
   return (
     <>
-      <nav className='absolute bottom-0 flex flex-row list-none items-center justify-center gap-16 bg-green-500 w-full pb-10 pt-2'>
+      <nav className='absolute bottom-0 flex flex-row list-none items-center justify-center gap-16 bg-gray-100 w-full pb-10 pt-2'>
         <li>
           <Link to="/" className='flex flex-col items-center'>
             <img src={home} alt="" />
