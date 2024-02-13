@@ -8,7 +8,7 @@
 //   )
 // }
 
-export default function Friends() {
+export default function FriendsPage() {
   return (
     <div>
       Friends

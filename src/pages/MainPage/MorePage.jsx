@@ -1,6 +1,6 @@
 
 
-export default function More() {
+export default function MorePage() {
   return (
     <div>
       <p>More</p>

@@ -1,14 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import kakaotalk from '../../assets/kakaotalk.png';
 import validator from '../../util/validator';
-
-// function checkValid() {
-  
-// }
+import PocketBase from 'pocketbase';
 
 
 
-export default function Login({auth, setAuth}) {
+export default function Login({setUser}) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   
@@ -22,13 +19,14 @@ export default function Login({auth, setAuth}) {
 
   function handleSubmit() {
     validator(username, password);
+    const pb = new PocketBase(`${import.meta.env.VITE_PB_URL}`);
     if(validator(username, password)) {
-      setAuth(true);
+      localStorage.setItem("auth", true);
+      setUser(pb.authStore.model.id);
     } else {
       return;
     }
   }
-
 
   return (
     <div className="h-full w-full bg-primary flex flex-col justify-center items-center gap-4">

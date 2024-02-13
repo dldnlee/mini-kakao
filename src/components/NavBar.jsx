@@ -15,19 +15,19 @@ export default function NavBar() {
           </Link>
         </li>
         <li>
-          <Link to="chat">
+          <Link to="chat" className='flex flex-col items-center'>
             <img src={chat} alt="" />
             <p className='text-xs'>Chat</p>
           </Link>
         </li>
         <li>
-          <Link to="shopping">
+          <Link to="shopping" className='flex flex-col items-center'>
             <img src={map} alt="" />
             <p className='text-xs'>Shop</p>
           </Link>
         </li>
         <li>
-          <Link to="more">
+          <Link to="more" className='flex flex-col items-center'>
             <img src={people} alt="" />
             <p className='text-xs'>More</p>
           </Link>
