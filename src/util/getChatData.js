@@ -1,8 +1,8 @@
-import PocketBase from 'pocketbase';
+import pb from './pocketbase.js';
 
 export default async function getChatData() {
-  const pb = new PocketBase(`${import.meta.env.VITE_PB_URL}`);
   const chatData = await pb.collection('chats').getFullList();
+  
   return chatData;
 }
 

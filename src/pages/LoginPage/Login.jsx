@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import kakaotalk from '../../assets/kakaotalk.png';
 import validator from '../../util/validator';
-import PocketBase from 'pocketbase';
 
 
 
-export default function Login({setAuth, setUser}) {
+export default function Login({setAuth}) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   
@@ -22,10 +21,8 @@ export default function Login({setAuth, setUser}) {
     const login = await validator(username, password);
     if(login) {
       setAuth(true);
-      const user = localStorage.getItem('pocketbase_auth');
-      setUser(user.id);
     } else {
-      setAuth(false);
+      return;
     }
   }
   return (

@@ -7,21 +7,22 @@ import MainPage from './pages/MainPage/MainPage'
 export const UserContext = createContext(null);
 
 function App() {
-  const [user, setUser] = useState('');
-  const [auth, setAuth] = useState(false);
+  
+  const [auth, setAuth] = useState(false); // change this to false later on 
+  
   
   if(auth) {
     return (
-      <UserContext.Provider value={user}>
+      
         <div className='max-w-[400px] mx-auto bg-white relative h-screen max-h-[700px]'>
           <MainPage />
         </div>
-      </UserContext.Provider>
+      
     ) 
   } else {
     return (
       <div className='max-w-[400px] mx-auto bg-white relative h-screen max-h-[700px]'>
-        <Login setAuth={setAuth} setUser={setUser}/>
+        <Login setAuth={setAuth}/>
       </div>
     )
   }

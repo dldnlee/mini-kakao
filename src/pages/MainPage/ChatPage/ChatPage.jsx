@@ -20,7 +20,7 @@ function TopBar() {
 
 function ChatInstance() {
   return (
-    <Link to="chat_instance" className='w-full border-gray-300 border-[1px] flex px-2 py-1 justify-between'>
+    <Link to="chat_instance" className='w-full border-gray-300 flex px-2 py-1 justify-between'>
       <div className='flex gap-2'>
         <img src={profile} alt="profile" className='w-8' />
         <div className='flex flex-col items-start'>

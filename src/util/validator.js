@@ -1,14 +1,13 @@
-import PocketBase from 'pocketbase';
-
+import pb from './pocketbase.js';
 
 export default async function validator(username, password) {
-  const pb = new PocketBase(`${import.meta.env.VITE_PB_URL}`)
 
   try {
     const authData = await pb.collection('users').authWithPassword(
       username, 
       password
       );
+      localStorage.setItem('auth', true);
       return pb.authStore.isValid;
       
   } catch {
