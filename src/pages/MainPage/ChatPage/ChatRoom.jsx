@@ -4,7 +4,7 @@ import hamburger from '../../../assets/hamburger.svg';
 import { useNavigate } from 'react-router-dom';
 import getChatData from '../../../util/getChatData';
 import { UserContext } from '../../../App';
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 
 function TopBar() {
   const navigate = useNavigate();
@@ -28,31 +28,69 @@ function ChatInput() {
   )
 }
 
-function MyMessage() {
+function MyMessage(props) {
     return (
-      <>
-        <p className='bg-primary flex text-right'>Hello</p>
-      </>
+      <div className='w-full flex justify-end'>
+        <p className='bg-primary flex w-fit px-2 py-1 rounded-lg'>{props.content}</p>
+      </div>
     )
 }
 
-function OppMessage() {
+function OppMessage(props) {
   return (
-    <>
-      <p className='bg-gray-400 self-start flex w-10 float-left'>Goodbye</p>
-    </>
+    <div className='w-full'>
+      <p className='bg-white flex w-fit px-2 py-1  rounded-lg'>{props.content}</p>
+    </div>
   )
 }
+
+function MessageContainer({messages}) {
+  const userTest = localStorage.getItem('pocketbase_auth');
+  const {model} = JSON.parse(userTest);
+
+  return (
+    <div className='p-2 flex flex-col gap-2'>
+      {messages.map(item => {
+        if(item.created_by === model.id) {
+          return (
+            <>
+              <MyMessage key={item.id} content={item.content}/>
+            </>
+          )
+        } else {
+          return (
+            <>
+              <OppMessage key={item.id} content={item.content}/>
+            </>
+          )
+        }
+      })}
+    </div>
+  )
+}
+
 
 export default function ChatRoom() {
   const [messages, setMessages] = useState([]);
 
+  useEffect(() => {
+    const data = getChatData();
+    data
+      .then(value => {
+        setMessages(value)
+      })
+      .catch(() => {
+        console.log('there was an error handling your request');
+      });
+    
+  }, []);
 
+  console.log(messages);
+  
   return (
     <div className="h-full w-full bg-secondary">
       <TopBar />
-      <MyMessage />
-      <OppMessage />
+      <MessageContainer messages={messages} />
       <ChatInput />
     </div>
   )

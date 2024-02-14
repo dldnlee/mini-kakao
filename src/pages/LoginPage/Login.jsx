@@ -5,29 +5,29 @@ import PocketBase from 'pocketbase';
 
 
 
-export default function Login({setUser}) {
+export default function Login({setAuth, setUser}) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   
   function handleUsername(e) {
     setUsername(e.target.value);
   }
-  
+
   function handlePassword(e) {
     setPassword(e.target.value);
   }
 
-  function handleSubmit() {
-    validator(username, password);
-    const pb = new PocketBase(`${import.meta.env.VITE_PB_URL}`);
-    if(validator(username, password)) {
-      localStorage.setItem("auth", true);
-      setUser(pb.authStore.model.id);
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const login = await validator(username, password);
+    if(login) {
+      setAuth(true);
+      const user = localStorage.getItem('pocketbase_auth');
+      setUser(user.id);
     } else {
-      return;
+      setAuth(false);
     }
   }
-
   return (
     <div className="h-full w-full bg-primary flex flex-col justify-center items-center gap-4">
       <img src={kakaotalk} alt="KakaoTalk Bubble" className='w-44'/>

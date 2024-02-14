@@ -9,7 +9,6 @@ export default async function validator(username, password) {
       username, 
       password
       );
-      
       return pb.authStore.isValid;
       
   } catch {

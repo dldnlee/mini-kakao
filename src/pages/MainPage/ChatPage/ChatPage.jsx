@@ -1,7 +1,6 @@
 import search from '../../../assets/search.svg';
 import profile from '../../../assets/fullMy.svg';
 import { Link } from 'react-router-dom';
-import getChatData from '../../../util/getChatData';
 
 
 
