@@ -53,15 +53,15 @@ function MessageContainer({messages}) {
       {messages.map(item => {
         if(item.created_by === model.id) {
           return (
-            <>
-              <MyMessage key={item.id} content={item.content}/>
-            </>
+            <div key={item.id}>
+              <MyMessage content={item.content}/>
+            </div>
           )
         } else {
           return (
-            <>
-              <OppMessage key={item.id} content={item.content}/>
-            </>
+            <div key={item.id}>
+              <OppMessage  content={item.content}/>
+            </div>
           )
         }
       })}
