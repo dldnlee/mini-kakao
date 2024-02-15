@@ -1,8 +1,9 @@
 import search from '@/assets/search.svg';
 import profile from '@/assets/fullMy.svg';
 import { Link } from 'react-router-dom';
-
-
+import { getChatRooms } from '../../../util';
+import { useEffect, useState } from 'react';
+import pb from '@/util/pocketbase';
 
 function TopBar() {
   return (
@@ -19,17 +20,51 @@ function TopBar() {
 }
 
 function ChatInstance() {
+  const [chatrooms, setChatrooms] = useState([]);
+
+  useEffect(() => {
+    const data = getChatRooms();
+    data
+      .then(value => {
+        setChatrooms(value)
+        
+      })
+      .catch(() => {
+        console.log('there was an error handling your request');
+      })
+
+    pb.collection('chats').subscribe('*', () => {
+      const data = getChatRooms();
+      data
+      .then(value => {
+        setChatrooms(value)
+      })
+      .catch(() => {
+        console.log('there was an error handling your request');
+      })
+    })
+    
+  }, []);
+  console.log(chatrooms);
+
+
   return (
-    <Link to="chat_instance" className='w-full border-gray-300 flex px-2 py-1 justify-between'>
-      <div className='flex gap-2'>
-        <img src={profile} alt="profile" className='w-8' />
-        <div className='flex flex-col items-start'>
-          <p>name</p>
-          <p>content</p>
-        </div>
-      </div>
-      <p>time</p>
-    </Link>
+    <>
+      {chatrooms.map(item => {
+        return (
+          <Link key={item.id} to={item.id} className='w-full border-gray-300 flex px-2 py-1 justify-between'>
+            <div className='flex gap-2'>
+              <img src={profile} alt="profile" className='w-8' />
+              <div className='flex flex-col items-start'>
+                <p>name</p>
+                <p>content</p>
+              </div>
+            </div>
+            <p>time</p>
+          </Link>
+        )
+      })}
+    </>
   )
 }
 

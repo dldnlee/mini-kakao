@@ -17,12 +17,12 @@ function MainPage() {
       <Routes>
         <Route path="/" element={<NavBar />}>
           <Route index element={<FriendsPage />} />
-          <Route path="chat" element={<ChatPage />} />
+          <Route path="chat" element={<ChatPage />}/>
           <Route path="shopping" element={<ShoppingPage />} />
           <Route path="more" element={<MorePage />} />
           <Route path="*" element={<Missing />} /> {/*empty page*/}
         </Route> 
-        <Route path="chat/chat_instance" element={<ChatRoom />} />
+        <Route path="chat/:chatroomId" element={<ChatRoom />} />
       </Routes>
     </BrowserRouter>
     
