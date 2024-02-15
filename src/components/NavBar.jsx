@@ -1,8 +1,8 @@
 import { Outlet, Link } from 'react-router-dom';
-import home from '../assets/home.svg';
-import chat from '../assets/chat.svg';
-import map from '../assets/map.svg';
-import people from '../assets/my.svg';
+import home from '@/assets/home.svg';
+import chat from '@/assets/chat.svg';
+import map from '@/assets/map.svg';
+import people from '@/assets/my.svg';
 
 export default function NavBar() {
   return (

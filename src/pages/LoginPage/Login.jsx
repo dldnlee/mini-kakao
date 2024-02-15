@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import kakaotalk from '../../assets/kakaotalk.png';
-import validator from '../../util/validator';
+import kakaotalk from '@/assets/kakaotalk.png';
+import { validator } from '@/util/index.js';
 
 
 
@@ -29,7 +29,7 @@ export default function Login({setAuth}) {
     <div className="h-full w-full bg-primary flex flex-col justify-center items-center gap-4">
       <img src={kakaotalk} alt="KakaoTalk Bubble" className='w-44'/>
       <form action="/" className="flex flex-col gap-6 justify-center items-center" onSubmit={handleSubmit}>
-        <div>
+        <div className='text-center'>
           <label htmlFor="username" className="text-s sr-only">Username</label>
           <input type="text" id="username" placeholder="아이디" className="px-3 py-1 w-2/3" onChange={handleUsername}/>
           <label htmlFor="password" className="text-s sr-only">Password</label>

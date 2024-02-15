@@ -1,6 +1,6 @@
 import pb from './pocketbase.js';
 
-export default async function getChatData() {
+export async function getChatData() {
   const chatData = await pb.collection('chats').getFullList();
   
   return chatData;

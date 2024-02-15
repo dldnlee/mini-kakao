@@ -1,6 +1,6 @@
 import pb from './pocketbase.js';
 
-export default async function validator(username, password) {
+export async function validator(username, password) {
 
   try {
     const authData = await pb.collection('users').authWithPassword(

@@ -4,7 +4,7 @@ import pb from './pocketbase.js';
 //   const pb = new PocketBase('http:')
 // }
 
-export default async function uploadChat(content, created_by, sent_to) {
+export async function uploadChat(content, created_by, sent_to) {
 
   const data = {
       "content": `${content}`,

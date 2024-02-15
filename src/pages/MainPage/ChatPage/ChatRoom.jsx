@@ -1,11 +1,10 @@
 // import getChatData from "../../../util/getChatData"
-import arrow from '../../../assets/leftArrow.svg';
-import hamburger from '../../../assets/hamburger.svg';
+import arrow from '@/assets/leftArrow.svg';
+import hamburger from '@/assets/hamburger.svg';
 import { useNavigate } from 'react-router-dom';
-import getChatData from '../../../util/getChatData';
-import uploadChat from '../../../util/uploadChat.js';
 import { useState, useEffect } from 'react';
-import pb from '../../../util/pocketbase.js';
+import { getChatData, uploadChat } from '@/util/index.js';
+import pb from '@/util/pocketbase.js';
 
 function TopBar() {
   const navigate = useNavigate();
