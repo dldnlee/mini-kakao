@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { getChatRooms } from '../../../util';
 import { useEffect, useState } from 'react';
 import pb from '@/util/pocketbase';
+import { getUserData } from '../../../util/getUserData';
 
 function TopBar() {
   return (
@@ -19,67 +20,54 @@ function TopBar() {
   )
 }
 
-async function updateChatRooms(setChatrooms) {
-  const data = getChatRooms();
-  data
-    .then(value => {
-      setChatrooms(value)
-    })
-    .catch(() => {
-      console.log('there was an error handling your request');
-    })
-}
-
 function ChatInstance() {
   const [chatrooms, setChatrooms] = useState([]);
+  const [opponentUsers, setOpponentUsers] = useState({});
   const { model } = JSON.parse(localStorage.getItem('pocketbase_auth'));
 
   useEffect(() => {
-    updateChatRooms(setChatrooms);
+    const fetchData = async () => {
+      const updatedChatrooms = await getChatRooms();
+      setChatrooms(updatedChatrooms);
+      
+      const usersData = await Promise.all(
+        updatedChatrooms.map(async (item) => {
+          if (model.id === item.user1) {
+            return await getUserData(item.user2);
+          } else if (model.id === item.user2) {
+            return await getUserData(item.user1);
+          }
+        })
+      );
+      
+      const usersMap = {};
+      updatedChatrooms.forEach((item, index) => {
+        usersMap[item.id] = usersData[index];
+      });
+      setOpponentUsers(usersMap);
+    };
 
-    pb.collection('chats').subscribe('*', updateChatRooms);
-
-    
-
-  }, []);
-
-  console.log(chatrooms);
+    fetchData();
+  }, [model.id]);
 
   return (
     <>
-      {chatrooms.map(item => {
-        if(model.id === item.user1) {
-          return (
-            <Link key={item.id} to={item.id} className='w-full border-gray-300 flex px-2 py-1 justify-between'>
-              <div className='flex gap-2'>
-                <img src={profile} alt="profile" className='w-8' />
-                <div className='flex flex-col items-start'>
-                  <p>{item.user2}</p>
-                  <p>{model.name}</p>
-                </div>
-              </div>
-              <p>time</p>
-            </Link>
-          )
-        } else if(model.id === item.user2) {
-          return (
-            <Link key={item.id} to={item.id} className='w-full border-gray-300 flex px-2 py-1 justify-between'>
-              <div className='flex gap-2'>
-                <img src={profile} alt="profile" className='w-8' />
-                <div className='flex flex-col items-start'>
-                  <p>{item.user1}</p>
-                  <p>{model.name}</p>
-                </div>
-              </div>
-              <p>time</p>
-            </Link>
-          )
-        }
-        
-      })}
+      {chatrooms.map((item) => (
+        <Link key={item.id} to={item.id} className="w-full border-gray-300 flex px-2 py-1 justify-between">
+          <div className="flex gap-2">
+            <img src={profile} alt="profile" className="w-8" />
+            <div className="flex flex-col items-start">
+              <p>{opponentUsers[item.id]?.name}</p>
+              <p>{opponentUsers[item.id]?.username}</p>
+            </div>
+          </div>
+          <p>time</p>
+        </Link>
+      ))}
     </>
-  )
+  );
 }
+
 
 export default function ChatPage() {
 

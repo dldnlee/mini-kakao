@@ -6,7 +6,8 @@ import people from '@/assets/my.svg';
 
 export default function NavBar() {
   return (
-    <>
+    <div className='max-w-[500px] w-[390px] h-[844px] max-[1000px] relative ml-auto mr-auto'>
+      <Outlet />
       <nav className='absolute bottom-0 flex flex-row list-none items-center justify-center gap-16 bg-gray-100 w-full pb-10 pt-2'>
         <li>
           <Link to="/" className='flex flex-col items-center'>
@@ -33,9 +34,7 @@ export default function NavBar() {
           </Link>
         </li>
       </nav>
-
-      <Outlet />
-    </>
+    </div>
     
   )
 }
